@@ -6,8 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException, status
 
 
-file_config = pathlib.Path(
-    __file__).parent.parent.joinpath('config/config.ini')
+file_config = pathlib.Path(__file__).parent.parent.joinpath('config/config.ini')
 config = configparser.ConfigParser()
 config.read(file_config)
 
@@ -29,7 +28,7 @@ def get_db():
         yield db
     except SQLAlchemyError as err:
         db.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
     finally:
         db.close()
+        
